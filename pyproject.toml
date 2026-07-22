@@ -1,5 +1,5 @@
 [project]
-name = "avt"
+name = "afj"
 version = "0.1.0"
 description = "Outputs the values of a form in a PDF file"
 readme = "README.md"
@@ -9,7 +9,7 @@ dependencies = [
 ]
 
 [project.scripts]
-avt = "avt:main"
+afj = "afj:main"
 
 # Helpers for uv
 [build-system]
