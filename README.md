@@ -37,15 +37,16 @@ afj -l me.json employee.pdf
 
 # Installation
 
+`afj` is written in python because pypdf is so good.  It is designed to be installed and run as a `uv` tool.  You don't need admin privileges.
+
 ```sh
 brew install python uv
 ```
 
 ```sh
 git clone git@github.com:cskeeters/afj.git
-cd tyaf
-# Requries uv to install the tool
-make
+cd afj
+uv tool install .
 ```
 
 # Related Tools
