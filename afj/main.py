@@ -9,13 +9,6 @@ def usage() -> None:
     print("Usage:", sys.argv[0], " [-l <data.json>] <in.pdf>")
     sys.exit(1)
 
-def strip_name(name) -> str:
-    if name == None:
-        return "UNCHECKED"
-    if name.startswith("/"):
-        return name[1:]
-    return name
-
 # PDF standard requies lines to be separated with '\r'.  Switch to the native newline.
 def native_newline(s: str) -> str:
     lines = s.splitlines()
@@ -95,7 +88,7 @@ def print_fields(pdf_path):
             if field.field_type == "/Tx":
                 fdict[field_name] = native_newline(value)
             elif field.field_type == "/Btn":
-                fdict[field_name] = strip_name(value)
+                fdict[field_name] = value
             else: # for unknown field types, just output the type
                 fdict[field_name] = field.field_type
     else:
