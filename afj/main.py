@@ -89,8 +89,6 @@ def print_fields(pdf_path):
                 fdict[field_name] = native_newline(value)
             elif field.field_type == "/Btn":
                 fdict[field_name] = value
-            else: # for unknown field types, just output the type
-                fdict[field_name] = field.field_type
     else:
         print("No interactive form data fields found in the document structure.")
 
