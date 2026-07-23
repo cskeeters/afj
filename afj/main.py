@@ -21,6 +21,18 @@ def native_newline(s: str) -> str:
     lines = s.splitlines()
     return os.linesep.join(lines)
 
+def normalize_field_values(values):
+    """Recursively replace '\n' with '\r' in all string values.
+    Handles dicts, lists, and scalar strings.
+    """
+    if isinstance(values, dict):
+        return {k: normalize_field_values(v) for k, v in values.items()}
+    if isinstance(values, list):
+        return [normalize_field_values(v) for v in values]
+    if isinstance(values, str):
+        return values.replace('\n', '\r')
+    return values
+
 def load_fields(json_path, pdf_path):
     """Load field values from a JSON file and write them into the PDF.
 
@@ -29,10 +41,11 @@ def load_fields(json_path, pdf_path):
     line), updates each page's form fields, and overwrites the original PDF with
     the new contents.
     """
-    # Load field values from JSON
+    # Load field values from JSON and normalize newlines
     try:
         with open(json_path, "r", encoding="utf-8") as f:
-            field_values = json.load(f)
+            raw_values = json.load(f)
+        field_values = normalize_field_values(raw_values)
     except Exception as e:
         print(f"Error loading JSON file '{json_path}': {e}")
         sys.exit(1)
